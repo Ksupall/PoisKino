@@ -10,6 +10,10 @@ class User(models.Model):
 	def __str__(self):
 		return self.login
 
+	def save(self, *args, **kwargs):
+		print("User is saved!")
+		super().save(*args, **kwargs)
+
 class Film(models.Model):
 		GENRE = (
 	(1, "Боевик"),
@@ -38,6 +42,10 @@ class Film(models.Model):
 	def __str__(self):
 		return self.name
 
+	def save(self, *args, **kwargs):
+		print("Film is saved!")
+		super().save(*args, **kwargs)
+
 class Like(models.Model):
 	id = models.AutoField(primary_key = True, unique = True)
 	user_id = models.ForeignKey(User, on_delete = models.PROTECT)
@@ -46,6 +54,10 @@ class Like(models.Model):
 	def __str__(self):
 		return self.id
 
+	def save(self, *args, **kwargs):
+		print("Like is saved!")
+		super().save(*args, **kwargs)
+
 class Actor(models.Model):
 	id = models.AutoField(primary_key = True, unique = True)
 	name = models.CharField(max_length = 150, unique = True)
@@ -53,12 +65,20 @@ class Actor(models.Model):
 	def __str__(self):
 		return self.name
 
+	def save(self, *args, **kwargs):
+		print("Actor is saved!")
+		super().save(*args, **kwargs)
+
 class Director(models.Model):
 	id = models.AutoField(primary_key = True, unique = True)
 	name = models.CharField(max_length = 150, unique = True)
 
 	def __str__(self):
 		return self.name
+
+	def save(self, *args, **kwargs):
+		print("Director is saved!")
+		super().save(*args, **kwargs)
 
 class List(models.Model):
 	id = models.AutoField(primary_key = True, unique = True)
@@ -69,4 +89,8 @@ class List(models.Model):
 
 	def __str__(self):
 		return self.name
+
+	def save(self, *args, **kwargs):
+		print("List is saved!")
+		super().save(*args, **kwargs)
 
