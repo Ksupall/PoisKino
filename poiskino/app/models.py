@@ -1,7 +1,7 @@
 from django.db import models
 
 class User(models.Model):
-	id = models.AutoField(primary_key = True, unique = True)
+	id = models.AutoField(primary_key = True)
 	login = models.CharField(max_length = 50, unique = True,
 		verbose_name = "логин")
 	password = models.CharField(max_length = 60, 
@@ -28,7 +28,7 @@ class Film(models.Model):
 	(10, "Триллер"),
 	(11, "Фантастика")
 	)
-	id = models.AutoField(primary_key = True, unique = True)
+	id = models.AutoField(primary_key = True)
 	name = models.CharField(max_length = 100, verbose_name = "название")
 	description = models.TextField(verbose_name = "описание")
 	country = models.CharField(max_length = 100, 
@@ -47,7 +47,7 @@ class Film(models.Model):
 		super(Film, self).save(*args, **kwargs)
 
 class Like(models.Model):
-	id = models.AutoField(primary_key = True, unique = True)
+	id = models.AutoField(primary_key = True)
 	user_id = models.ForeignKey(User, on_delete = models.PROTECT)
 	film_id = models.ForeignKey(Film, on_delete = models.PROTECT)
 
@@ -59,7 +59,7 @@ class Like(models.Model):
 		super(Like, self).save(*args, **kwargs)
 
 class Actor(models.Model):
-	id = models.AutoField(primary_key = True, unique = True)
+	id = models.AutoField(primary_key = True)
 	name = models.CharField(max_length = 150, unique = True)
 
 	def __str__(self):
@@ -70,7 +70,7 @@ class Actor(models.Model):
 		super(Actor, self).save(*args, **kwargs)
 
 class Director(models.Model):
-	id = models.AutoField(primary_key = True, unique = True)
+	id = models.AutoField(primary_key = True)
 	name = models.CharField(max_length = 150, unique = True)
 
 	def __str__(self):
@@ -81,7 +81,7 @@ class Director(models.Model):
 		super(Director, self).save(*args, **kwargs)
 
 class List(models.Model):
-	id = models.AutoField(primary_key = True, unique = True)
+	id = models.AutoField(primary_key = True)
 	user_id = models.ForeignKey(User, on_delete = models.PROTECT)
 	name = models.CharField(max_length = 150, unique = True, 
 		verbose_name = "название")
