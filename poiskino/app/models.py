@@ -12,7 +12,7 @@ class User(models.Model):
 
 	def save(self, *args, **kwargs):
 		print("User is saved!")
-		super().save(*args, **kwargs)
+		super(User, self).save(*args, **kwargs)
 
 class Film(models.Model):
 		GENRE = (
@@ -44,7 +44,7 @@ class Film(models.Model):
 
 	def save(self, *args, **kwargs):
 		print("Film is saved!")
-		super().save(*args, **kwargs)
+		super(Film, self).save(*args, **kwargs)
 
 class Like(models.Model):
 	id = models.AutoField(primary_key = True, unique = True)
@@ -56,7 +56,7 @@ class Like(models.Model):
 
 	def save(self, *args, **kwargs):
 		print("Like is saved!")
-		super().save(*args, **kwargs)
+		super(Like, self).save(*args, **kwargs)
 
 class Actor(models.Model):
 	id = models.AutoField(primary_key = True, unique = True)
@@ -67,7 +67,7 @@ class Actor(models.Model):
 
 	def save(self, *args, **kwargs):
 		print("Actor is saved!")
-		super().save(*args, **kwargs)
+		super(Actor, self).save(*args, **kwargs)
 
 class Director(models.Model):
 	id = models.AutoField(primary_key = True, unique = True)
@@ -78,7 +78,7 @@ class Director(models.Model):
 
 	def save(self, *args, **kwargs):
 		print("Director is saved!")
-		super().save(*args, **kwargs)
+		super(Director, self).save(*args, **kwargs)
 
 class List(models.Model):
 	id = models.AutoField(primary_key = True, unique = True)
@@ -92,5 +92,5 @@ class List(models.Model):
 
 	def save(self, *args, **kwargs):
 		print("List is saved!")
-		super().save(*args, **kwargs)
+		super(List, self).save(*args, **kwargs)
 
