@@ -11,7 +11,7 @@ class User(models.Model):
 
 	def save(self, *args, **kwargs):
 		print("User is saved!")
-		super(User, self).save(*args, **kwargs)
+		super().save(*args, **kwargs)
 
 class Actor(models.Model):
 	name = models.CharField(max_length = 150, unique = True)
@@ -21,7 +21,7 @@ class Actor(models.Model):
 
 	def save(self, *args, **kwargs):
 		print("Actor is saved!")
-		super(Actor, self).save(*args, **kwargs)
+		super().save(*args, **kwargs)
 
 class Director(models.Model):
 	name = models.CharField(max_length = 150, unique = True)
@@ -31,7 +31,7 @@ class Director(models.Model):
 
 	def save(self, *args, **kwargs):
 		print("Director is saved!")
-		super(Director, self).save(*args, **kwargs)
+		super().save(*args, **kwargs)
 
 class Film(models.Model):
 	GENRE = (
@@ -63,7 +63,7 @@ class Film(models.Model):
 
 	def save(self, *args, **kwargs):
 		print("Film is saved!")
-		super(Film, self).save(*args, **kwargs)
+		super().save(*args, **kwargs)
 
 class Like(models.Model):
 	user_id = models.ForeignKey(User, on_delete = models.PROTECT)
@@ -74,7 +74,7 @@ class Like(models.Model):
 
 	def save(self, *args, **kwargs):
 		print("Like is saved!")
-		super(Like, self).save(*args, **kwargs)
+		super().save(*args, **kwargs)
 
 class List(models.Model):
 	user_id = models.ForeignKey(User, on_delete = models.PROTECT)
@@ -87,5 +87,5 @@ class List(models.Model):
 
 	def save(self, *args, **kwargs):
 		print("List is saved!")
-		super(List, self).save(*args, **kwargs)
+		super().save(*args, **kwargs)
 

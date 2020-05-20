@@ -1,3 +1,9 @@
 from django.contrib import admin
+from app.models import User, Actor, Director, List, Film, Like
 
-# Register your models here.
+admin.site.register(User)
+admin.site.register(Actor)
+admin.site.register(Director)
+admin.site.register(List)
+admin.site.register(Film)
+admin.site.register(Like)
