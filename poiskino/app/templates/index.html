@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+	<meta charset="UTF-8">
+	<title>Новинки кино</title>
+	<link rel="stylesheet" href="../static/style.css">
+	<link href="https://fonts.googleapis.com/css2?family=Open+Sans" rel="stylesheet">
+</head>
+<body>
+	<header>
+		<div class="headerlogo"><p>ПоисКино</p></div>
+		<nav>
+			<div class="topnav" id="myTopNav">
+				<a href="#">О НАС</a>
+				<a href="#">ПОИСК</a>
+				<a href="#">ВОЙТИ</a>
+				<a href="#">РЕГИСТРАЦИЯ</a>
+			</div>
+		</nav>
+	</header>
+	<body>
+		<div class="title">Успейте посмотреть новинки 2020 года!</div>
+		<ul>
+			{% for f in films %}
+			<li><a href="/{{ f.id }}/"></a>{{ f.name }}</li>
+			{% endfor %}
+		</ul>
+	</body>
+	<script src="../static/script.js"></script>
+</body>
+</html>
