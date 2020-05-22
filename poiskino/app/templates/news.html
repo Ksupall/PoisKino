@@ -1,0 +1,15 @@
+{% extends "index.html" %}
+{% block css %}<link rel="stylesheet" href="../static/news.css">{% endblock %}
+<title>{% block title %}Новинки кино{% endblock %}</title>
+{% block main %}
+<h2 class="news">Новинки в мире кино</h2>
+<div class="news-description">
+	Успейте посмотреть новые шедевры 2020 года в компании семьи, друзей
+	или насладитесь просмотром в одиночестве.
+</div>
+<ul>
+	{% for f in films %}
+		<li><a href="/films/{{ f.id }}/">{{ f.name }}</a></li>
+	{% endfor %}
+</ul>
+{% endblock %}
