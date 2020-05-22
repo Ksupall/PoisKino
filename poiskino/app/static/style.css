@@ -24,6 +24,9 @@ header {
 	margin-top: 30px;
 	margin-left: 5%;
 }
+.headerlogo a {
+	color: #fcac45;
+}
 nav {
 	margin-top: 45px;
 	margin-left: 49%;
@@ -37,4 +40,8 @@ nav {
 }
 .topnav a:hover {
 	border-bottom: 3px solid #fcac45;
-} 
+}
+.main {
+	margin-left: 5%;
+	margin-top: 50px;
+}
