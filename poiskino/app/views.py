@@ -1,10 +1,15 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse, Http404
-from app.models import Film, Actor
+from .models import *
+from django.contrib import messages
+from .forms import RegisterForm
+
 
 def index(request):
-	#films = Film.objects.filter(year=2020)
-	films = Film.objects.all()
+	try:
+		films = Film.objects.filter(year=2020)
+	except Film.DoesNotExist:
+		raise Http404
 	return render(request, "news.html", {"films": films})
 
 def detail(request, film_id):
@@ -17,8 +22,20 @@ def detail(request, film_id):
 def about(request):
 	return render(request, "about.html", {})
 
-def signup(request):
-	return render(request, "signup.html", {})
+def register(request):
+	if request.method == 'POST':
+		form = RegisterForm(request.POST)
+		if form.is_valid():
+			form.save()
+			username = form.cleaned_data.get('username')
+			password = form.cleaned_data.get('password')
+			messages.success(request, f'Аккаунт создан для { username }!')
+			user = User.objects.create(login = username, password = password)
+			user.save()
+			return redirect('../login')
+	else:
+		form = RegisterForm()
+	return render(request, 'register.html', {'form': form})
 
 def search(request):
 	return render(request, "search.html", {})
