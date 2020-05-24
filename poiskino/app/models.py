@@ -3,7 +3,8 @@ from django.db import models
 class User(models.Model):
 	login = models.CharField(max_length = 50, unique = True,
 		verbose_name = "логин")
-	password = models.CharField(max_length = 60, 
+	email = models.EmailField(max_length = 40, null = True)
+	password = models.CharField(max_length = 60, null = True,
 		verbose_name = "пароль")
 	
 	def __str__(self):
