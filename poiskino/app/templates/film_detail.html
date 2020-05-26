@@ -1,0 +1,11 @@
+{% extends "index.html" %}
+{% load staticfiles %}
+<title>{% block title %}{{ film.name }}{% endblock %}</title>
+{% block style %}<link rel="stylesheet" href="../static/bootstrap.min.css"><link type="text/css" href="{% static 'style.css' %}" rel="stylesheet">{% endblock %}
+{% block main %}
+	<h2>{{ film.name }}</h2>
+	<div>
+		{{ film.genre }},
+		{{ film.description }}
+	</div>
+{% endblock %}

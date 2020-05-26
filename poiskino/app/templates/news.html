@@ -1,5 +1,6 @@
 {% extends "index.html" %}
-{% block css %}<link rel="stylesheet" href="../static/news.css">{% endblock %}
+{% load staticfiles %}
+{% block css %}<link rel="stylesheet" href="{% static 'news.css' %}">{% endblock %}
 <title>{% block title %}Новинки кино{% endblock %}</title>
 {% block main %}
 <h2 class="news">Новинки в мире кино</h2>
@@ -9,7 +10,7 @@
 </div>
 <ul>
 	{% for f in films %}
-		<li><a href="app/films/{{ f.id }}/">{{ f.name }}</a></li>
+		<li><a href="film/{{ f.id }}/">{{ f.name }}</a></li>
 	{% endfor %}
 </ul>
 {% endblock %}

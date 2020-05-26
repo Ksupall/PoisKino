@@ -4,20 +4,20 @@
 <head>
 	<meta charset="UTF-8">
 	<title>{% block title %}Новинки кино{% endblock %}</title>
-	{% block css %}<link rel="stylesheet" href="../static/style.css">{% endblock %}
-	<link rel="stylesheet" href="../static/bootstrap.min.css">
-	<link type="text/css" href="{% static "style.css" %}" rel="stylesheet" >
+	{% block style %}<link type="text/css" href="{% static 'style.css' %}" rel="stylesheet" >{% endblock %}
 	<link href="https://fonts.googleapis.com/css2?family=Open+Sans" rel="stylesheet">
 </head>
 <body>
 	<header>
-		<div class="headerlogo"><p>{% block logo %}<a href="../app">ПоисКино</a>{% endblock %}</p></div>
+		<div class="headerlogo"><p>ПоисКино</p></div>
 		<nav>
 			<div class="topnav" id="myTopNav">
 				<a href="../about">О НАС</a>
 				<a href="../search">ПОИСК</a>
+				<a href="../app">ГЛАВНАЯ</a>
 				{% if user.is_authenticated %}
 				<a href="">{{ user.username }}</a>
+				<a href="../saved">СОХРАНЕНО</a>
 				<a href="{%url 'logout' %}">ВЫЙТИ</a>
 				{% else %}
 				<a href="{% url 'login' %}">ВОЙТИ</a>

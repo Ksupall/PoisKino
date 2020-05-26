@@ -1,9 +1,11 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse, Http404
 from .models import *
 from django.contrib import messages
-from .forms import RegisterForm
-
+from .forms import RegisterForm, SearchForm
+from django.contrib.auth.models import User
+from django.db.models import Q
+from django.views.generic import TemplateView, ListView
 
 def index(request):
 	try:
@@ -28,18 +30,47 @@ def register(request):
 		if form.is_valid():
 			form.save()
 			username = form.cleaned_data.get('username')
-			password = form.cleaned_data.get('password')
 			messages.success(request, f'Аккаунт создан для { username }!')
-			user = User.objects.create(login = username, password = password)
-			user.save()
 			return redirect('../login')
 	else:
 		form = RegisterForm()
 	return render(request, 'register.html', {'form': form})
 
+def film_detail(request):
+	film = Film.objects.get(pk=film.id)
+	return render(request, "film_detail.html", {"film": film})
+
 def search(request):
 	return render(request, "search.html", {})
 
-def films(request):
-	films = Film.objects.all()
-	return render(request, "list.html", {"films": films})
+class SearchResultsView(ListView):
+	model = Film
+	template_name = 'search_results.html'
+
+	def get_queryset(self):
+		name = self.request.GET['name']
+		genre = self.request.GET.get('genre')
+		country = self.request.GET['country']
+		year = self.request.GET.get('year')
+		'''
+		actor_name = self.request.GET.get('actor')
+		if Actor.objects.filter(Q(name__icontains=actor_name)).count() == 0:
+			messages.error(request, f'Актер не найден!')
+		'''
+		if genre != None:
+			object_list = Film.objects.filter(Q(name__icontains=name) & Q(genre__iexact=genre) &
+				Q(country__icontains=country) & Q(year__iexact=year))
+		else:
+			object_list = Film.objects.filter(Q(name__icontains=name) & Q(country__icontains=country) &
+				Q(year__iexact=year))
+		return object_list
+
+
+def saved(request):
+	user = request.user
+	try:
+		saved = List.objects.get(user_id=user)
+	except List.DoesNotExist:
+		return render(request, "saved.html", {})
+	object_list = saved.films.all()
+	return render(request, "saved.html", {"object_list": object_list})

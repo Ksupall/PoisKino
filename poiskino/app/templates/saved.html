@@ -1,0 +1,18 @@
+{% extends "index.html" %}
+{% load staticfiles %}
+<title>{% block title %}Сохранено{% endblock %}</title>
+{% block style %}<link rel="stylesheet" href="../static/bootstrap.min.css"><link type="text/css" href="{% static 'style.css' %}" rel="stylesheet">{% endblock %}
+{% block main %}
+	<h3>Список</h3>
+<ul>
+	{% if object_list %}
+	{% for film in object_list %}
+	<li>
+		<a href="{{ film.id }}">{{ film.name }}</a>
+	</li>
+	{% endfor %}
+	{% else %}
+	<h3>No saved films!</h3>
+	{% endif %}
+</ul>
+{% endblock %}

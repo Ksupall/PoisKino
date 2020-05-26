@@ -1,18 +1,5 @@
 from django.db import models
-
-class User(models.Model):
-	login = models.CharField(max_length = 50, unique = True,
-		verbose_name = "логин")
-	email = models.EmailField(max_length = 40, null = True)
-	password = models.CharField(max_length = 60, null = True,
-		verbose_name = "пароль")
-	
-	def __str__(self):
-		return self.login
-
-	def save(self, *args, **kwargs):
-		print("User is saved!")
-		super().save(*args, **kwargs)
+from django.contrib.auth.models import User
 
 class Actor(models.Model):
 	name = models.CharField(max_length = 150, unique = True)
@@ -67,7 +54,7 @@ class Film(models.Model):
 		super().save(*args, **kwargs)
 
 class Like(models.Model):
-	user_id = models.ForeignKey(User, on_delete = models.PROTECT)
+	user_id = models.ForeignKey(User, on_delete=models.CASCADE)
 	film_id = models.ForeignKey(Film, on_delete = models.PROTECT)
 
 	def __str__(self):
@@ -78,15 +65,9 @@ class Like(models.Model):
 		super().save(*args, **kwargs)
 
 class List(models.Model):
-	user_id = models.ForeignKey(User, on_delete = models.PROTECT)
-	name = models.CharField(max_length = 150, unique = True, 
-		verbose_name = "название")
+	user_id = models.ForeignKey(User, on_delete=models.CASCADE)
 	films = models.ManyToManyField(Film, verbose_name = "фильмы")
-
-	def __str__(self):
-		return self.name
 
 	def save(self, *args, **kwargs):
 		print("List is saved!")
 		super().save(*args, **kwargs)
-

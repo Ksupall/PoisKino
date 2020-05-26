@@ -2,10 +2,12 @@
 <title>{% block title %}Выход{% endblock %}</title>
 {% block css %}<link rel="stylesheet" href="../static/bootstrap.min.css">{% endblock %}
 {% block main %}
-	<h3>You've been logged out successfully</h3>
-	<div class="border-top pt-3">
-		<small class="text-muted">
-			Log in again <a href="{% url 'login' %}">Sign in</a>
-		</small>
+	<div class="content-section">
+		<h3>Вы успешно вышли</h3>
+		<div class="border-top pt-3">
+			<small class="text-muted">
+				Войти опять<a href="{% url 'login' %}"> Войти</a>
+			</small>
+		</div>
 	</div>
 {% endblock %}
