@@ -34,6 +34,8 @@ def film_detail(request, film_id):
 		film = Film.objects.get(pk = film_id)
 	except Film.DoesNotExist:
 		raise Http404
+	genre = film.get_genre_display()
+	print(genre)
 	if request.user.is_authenticated == True:
 		user = request.user
 		try:
@@ -41,6 +43,7 @@ def film_detail(request, film_id):
 		except List.DoesNotExist:
 			dic = {
 				'film': film,
+				'genre': genre,
 				'saved': False
 				}
 			return render(request, "film_detail.html", dic)
@@ -48,16 +51,19 @@ def film_detail(request, film_id):
 		if film in films:
 			dic = {
 			'film': film,
+			'genre': genre,
 			'saved': True
 			}
 		else:
 			dic = {
 			'film': film,
+			'genre': genre,
 			'saved': False
 			}
 		return render(request, "film_detail.html", dic)
 	else:
-		dic = {'film': film}
+		dic = {'film': film,
+				'genre': genre}
 		return render(request, "film_detail.html", dic)
 
 def search(request):
@@ -74,15 +80,13 @@ class SearchResultsView(ListView):
 		year = self.request.GET.get('year')
 		'''
 		actor_name = self.request.GET.get('actor')
-		if Actor.objects.filter(Q(name__icontains=actor_name)).count() == 0:
-			messages.error(request, f'Актер не найден!')
+		print(Actor.objects.filter(Q(name__icontains=actor_name)).count())
 		'''
 		object_list = Film.objects.filter(Q(name__icontains=name))
 		if genre != None:
 			object_list = object_list.filter(Q(genre__iexact=genre))
 		object_list = object_list.filter(Q(country__icontains=country))
 		object_list = object_list.filter(Q(year__icontains=year))
-		print(object_list)
 		return object_list
 
 def saved(request):

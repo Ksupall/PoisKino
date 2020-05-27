@@ -3,12 +3,13 @@
 <title>{% block title %}{{ film.name }}{% endblock %}</title>
 {% block style %}<link rel="stylesheet" href="../static/bootstrap.min.css"><link type="text/css" href="{% static 'style.css' %}" rel="stylesheet">{% endblock %}
 {% block main %}
-	<h2>{{ film.name }}</h2>
-	<div>
-		{{ film.genre }},
-		{{ film.description }}
-		{{ film.country }}
-	</div>
+	<div class="name"><h2>{{ film.name }}</h2></div>
+	<h5>Описание:</h5>
+	<div class="description">{{ film.description }}</div><br />
+	<div class="country"><h5>Страна: {{ film.country }}</h5></div><br />
+	<h5>Год: {{ film.year }}</h5><br />
+	<h5>Жанр: {{ genre }}</h5><br />
+	<h5>Режиссер: {{ film.directors }}</h5><br />
 	{% if user.is_authenticated %}
 	<form action="../../saved{{ film.id }}/" method="post">
 		{% csrf_token %}

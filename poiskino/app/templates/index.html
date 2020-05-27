@@ -9,7 +9,7 @@
 </head>
 <body>
 	<header>
-		<div class="headerlogo"><p>ХочуПосмотреть!</p></div>
+		<div class="headerlogo">ХочуПосмотреть!</div>
 		<nav>
 			<div class="topnav" id="myTopNav">
 				<a href="../about">О НАС</a>
@@ -23,22 +23,13 @@
 				<a href="{% url 'login' %}">ВОЙТИ</a>
 				<a href="{% url 'register' %}">РЕГИСТРАЦИЯ</a>
 				{% endif %}
-
 			</div>
 		</nav>
 	</header>
 	<body>
 		<div class="main">
-			{% if messages %}
-			{% for message in messages %}
-			<div class="alert alert-{{ message.tags }}">
-				{{ message }}
-			</div>
-			{% endfor %}
-			{% endif %}
 			{% block main %}
 			{% endblock %}
-		</div>
+		</span>
 	</body>
-</body>
 </html>

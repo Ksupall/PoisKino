@@ -3,6 +3,11 @@
 {% block style %}<link rel="stylesheet" href="../static/bootstrap.min.css"><link rel="stylesheet" href="{% static 'style.css' %}">{% endblock %}
 <title>{% block title %}Поиск{% endblock %}</title>
 {% block main %}
+<script language="JavaScript">
+	function reset() {
+	$('genre').val(''); // очищаем поле name
+}
+</script>
 {% if messages %}
 	{% for message in messages %}
 		<div class="alert alert-{{ message.tags }}">
@@ -11,6 +16,7 @@
 	{% endfor %}
 {% endif %}
 <form action="{% url 'search_results' %}" method="get">
+	<fieldset>
 	<h6>Введите название фильма</h6>
 	<input name="name" type="text" placeholder="">
 	<h6>Выберите жанр</h6>
@@ -30,10 +36,10 @@
 	<input name="country" type="text" placeholder="">
 	<h6>Введите год</h6>
 	<input name="year" type="text" placeholder="">
-	<h6>Введите актера</h6>
-	<input name="actor" type="text" placeholder="">
 	<div class="form-group">
 		<button class="btn btn-outline-info" type = "submit">Искать</button>
 	</div>
+	<button type="button" onclick="reset()">Очистить</button>
+	</fieldset>
 </form>
 {% endblock %}
