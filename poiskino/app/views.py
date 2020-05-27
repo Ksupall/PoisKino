@@ -72,24 +72,16 @@ class SearchResultsView(ListView):
 		genre = self.request.GET.get('genre')
 		country = self.request.GET['country']
 		year = self.request.GET.get('year')
-		print(name)
 		'''
 		actor_name = self.request.GET.get('actor')
 		if Actor.objects.filter(Q(name__icontains=actor_name)).count() == 0:
 			messages.error(request, f'Актер не найден!')
-		if genre != None:
-			object_list = Film.objects.filter(Q(name__icontains=name) & Q(genre__iexact=genre) &
-				Q(country__icontains=country) & Q(year__iexact=year))
-		else:
-			object_list = Film.objects.filter(Q(name__icontains=name) & Q(country__icontains=country) &
-				Q(year__iexact=year))
 		'''
+		object_list = Film.objects.filter(Q(name__icontains=name))
 		if genre != None:
-			object_list = Film.objects.filter(Q(name__icontains=name) & Q(genre__iexact=genre) &
-				Q(country__icontains=country) & Q(year__iexact=year))
-		else:
-			object_list = Film.objects.filter(Q(name__icontains=name) & Q(country__icontains=country) &
-				Q(year__iexact=year))
+			object_list = object_list.filter(Q(genre__iexact=genre))
+		object_list = object_list.filter(Q(country__icontains=country))
+		object_list = object_list.filter(Q(year__icontains=year))
 		print(object_list)
 		return object_list
 
