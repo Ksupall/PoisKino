@@ -10,7 +10,7 @@
 </div>
 <ul>
 	{% for f in films %}
-		<li><a href="film/{{ f.id }}/">{{ f.name }}</a></li>
+		<li><a href="../film{{ f.id }}/">{{ f.name }}</a></li>
 	{% endfor %}
 </ul>
 {% endblock %}

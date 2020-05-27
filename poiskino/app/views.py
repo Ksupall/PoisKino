@@ -14,13 +14,6 @@ def index(request):
 		raise Http404
 	return render(request, "news.html", {"films": films})
 
-def detail(request, film_id):
-	try:
-		film = Film.objects.get(pk = film_id)
-	except Film.DoesNotExist:
-		raise Http404
-	return render(request, "film.html", {"film": film})
-
 def about(request):
 	return render(request, "about.html", {})
 
@@ -36,9 +29,36 @@ def register(request):
 		form = RegisterForm()
 	return render(request, 'register.html', {'form': form})
 
-def film_detail(request):
-	film = Film.objects.get(pk=film.id)
-	return render(request, "film_detail.html", {"film": film})
+def film_detail(request, film_id):
+	try:
+		film = Film.objects.get(pk = film_id)
+	except Film.DoesNotExist:
+		raise Http404
+	if request.user.is_authenticated == True:
+		user = request.user
+		try:
+			saved = List.objects.get(user_id=user)
+		except List.DoesNotExist:
+			dic = {
+				'film': film,
+				'saved': False
+				}
+			return render(request, "film_detail.html", dic)
+		films = saved.films.all()
+		if film in films:
+			dic = {
+			'film': film,
+			'saved': True
+			}
+		else:
+			dic = {
+			'film': film,
+			'saved': False
+			}
+		return render(request, "film_detail.html", dic)
+	else:
+		dic = {'film': film}
+		return render(request, "film_detail.html", dic)
 
 def search(request):
 	return render(request, "search.html", {})
@@ -52,10 +72,17 @@ class SearchResultsView(ListView):
 		genre = self.request.GET.get('genre')
 		country = self.request.GET['country']
 		year = self.request.GET.get('year')
+		print(name)
 		'''
 		actor_name = self.request.GET.get('actor')
 		if Actor.objects.filter(Q(name__icontains=actor_name)).count() == 0:
 			messages.error(request, f'Актер не найден!')
+		if genre != None:
+			object_list = Film.objects.filter(Q(name__icontains=name) & Q(genre__iexact=genre) &
+				Q(country__icontains=country) & Q(year__iexact=year))
+		else:
+			object_list = Film.objects.filter(Q(name__icontains=name) & Q(country__icontains=country) &
+				Q(year__iexact=year))
 		'''
 		if genre != None:
 			object_list = Film.objects.filter(Q(name__icontains=name) & Q(genre__iexact=genre) &
@@ -63,8 +90,8 @@ class SearchResultsView(ListView):
 		else:
 			object_list = Film.objects.filter(Q(name__icontains=name) & Q(country__icontains=country) &
 				Q(year__iexact=year))
+		print(object_list)
 		return object_list
-
 
 def saved(request):
 	user = request.user
@@ -72,5 +99,25 @@ def saved(request):
 		saved = List.objects.get(user_id=user)
 	except List.DoesNotExist:
 		return render(request, "saved.html", {})
+	object_list = saved.films.all()
+	return render(request, "saved.html", {"object_list": object_list})
+
+
+def saved2(request, film_id):
+	if request.method == 'POST':
+		action = request.POST.get('change')
+		film = Film.objects.get(pk=film_id)
+		user = request.user
+		saved = List.objects.get(user_id=user)
+		if action == "Добавить":
+			saved.addtolist(film_id)
+		elif action == "Удалить":
+			saved.deletefromlist(film_id)
+
+	user = request.user
+	try:
+		saved = List.objects.get(user_id=user)
+	except List.DoesNotExist:
+		return render(request, "saved.html", {"object_list": film})
 	object_list = saved.films.all()
 	return render(request, "saved.html", {"object_list": object_list})

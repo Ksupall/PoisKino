@@ -30,6 +30,7 @@ urlpatterns = [
 	path('logout/', auth_views.LogoutView.as_view(template_name='logout.html'), name='logout'),
 	path('search/', views.search, name='search'),
 	path('result/', SearchResultsView.as_view(), name='search_results'),
-	path('film/<int:film_id>/', views.film_detail, name='film_detail'),
+	path('film<int:film_id>/', views.film_detail, name='film_detail'),
 	path('saved/', views.saved, name='saved'),
+	path('saved<int:film_id>/', views.saved2, name='saved2'),
 ]

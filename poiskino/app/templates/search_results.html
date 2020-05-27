@@ -3,10 +3,14 @@
 <title>{% block title %}Фильмы{% endblock %}</title>
 {% block main %}
 <ul>
+	{% if object_list %}
 	{% for film in object_list %}
 	<li>
-		<a href="film/{{ film.id }}">{{ film.name }}</a>
+		<a href="../film/{{ film.id }}">{{ film.name }}</a>
 	</li>
 	{% endfor %}
+	{% else %}
+	<h3>Ничего не найдено:(</h3>
+	{% endif %}
 </ul>
 {% endblock %}
