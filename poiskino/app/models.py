@@ -66,7 +66,7 @@ class Like(models.Model):
 
 class List(models.Model):
 	user_id = models.ForeignKey(User, on_delete=models.CASCADE)
-	films = models.ManyToManyField(Film, null=True, verbose_name = "фильмы")
+	films = models.ManyToManyField(Film, verbose_name = "фильмы")
 	def addtolist(self, film_id):
 		self.films.add(film_id)
 		self.save()
