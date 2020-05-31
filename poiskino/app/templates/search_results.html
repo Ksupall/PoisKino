@@ -2,15 +2,31 @@
 {% load staticfiles %}
 <title>{% block title %}Фильмы{% endblock %}</title>
 {% block main %}
-<ul>
-	{% if object_list %}
-	{% for film in object_list %}
-	<li>
-		<a href="../film{{ film.id }}">{{ film.name }}</a>
-	</li>
+<h2>Результаты поиска:</h2>
+<div class="results">
+	<ul>
+		{% if object_list %}
+		{% for film in object_list %}
+		<li>
+			<a href="../film{{ film.id }}">{{ film.name }}</a>
+		</li>
+		{% endfor %}
+		{% else %}
+		<h3>Ничего не найдено:(</h3>
+		{% endif %}
+	</ul>
+</div>
+<nav aria-label="...">
+	<ul class="pagination">
+	{% for n in object_list.paginator.page_range %}
+		{% if object_list.number == n%}
+			<li class="page-item active">
+				<a class="page-link" href="?page={{ n }}">{{ n }}<span class="sr-only">(current)</span></a>
+			</li>
+		{% else %}
+			<li class="page-item"><a class="page-link" href="?page={{ n }}">{{ n }}</a></li>
+		{% endif %}
 	{% endfor %}
-	{% else %}
-	<h3>Ничего не найдено:(</h3>
-	{% endif %}
-</ul>
+	</ul>
+</nav>
 {% endblock %}

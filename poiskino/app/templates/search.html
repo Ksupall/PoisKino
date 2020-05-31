@@ -3,43 +3,42 @@
 {% block style %}<link rel="stylesheet" href="../static/bootstrap.min.css"><link rel="stylesheet" href="{% static 'style.css' %}">{% endblock %}
 <title>{% block title %}Поиск{% endblock %}</title>
 {% block main %}
-<script language="JavaScript">
-	function reset() {
-	$('genre').val(''); // очищаем поле name
-}
-</script>
-{% if messages %}
-	{% for message in messages %}
-		<div class="alert alert-{{ message.tags }}">
-			{{ message }}
-		</div>
-	{% endfor %}
-{% endif %}
 <form action="{% url 'search_results' %}" method="get">
 	<fieldset>
-	<h6>Введите название фильма</h6>
-	<input name="name" type="text" placeholder="">
-	<h6>Выберите жанр</h6>
+	<h5>Введите название фильма</h5>
+	<input name="name" type="text" placeholder=""><br /><br />
+	<h5>Выберите жанр</h5>
+	<div class="pa">
 		<input type="radio" name="genre" value="1">Боевик
-		<input type="radio" name="genre" value="2">Вестерн
+		<span class="part1"><input type="radio" name="genre" value="2">Вестерн</span>
+	</div>
+	<div class="pa">
 		<input type="radio" name="genre" value="3">Детектив
-		<input type="radio" name="genre" value="4">Документальный
+		<span class="part2"><input type="radio" name="genre" value="4">Документальный</span>
+	</div>
+	<div class="pa">
 		<input type="radio" name="genre" value="5">Драма
-		<input type="radio" name="genre" value="6">Комедия
+		<span class="part3"><input type="radio" name="genre" value="6">Комедия</span>
+	</div>
+	<div class="pa">
 		<input type="radio" name="genre" value="7">Мелодрама
-		<input type="radio" name="genre" value="8">Мультфильм
+		<span class="part4"><input type="radio" name="genre" value="8">Мультфильм</span>
+	</div>
+	<div class="pa">
 		<input type="radio" name="genre" value="9">Сериал
-		<input type="radio" name="genre" value="10">Триллер
+		<span class="part5"><input type="radio" name="genre" value="10">Триллер</span>
+	</div>
+	<div class="pa">
 		<input type="radio" name="genre" value="11">Фантастика
-		</p>
-	<h6>Введите страну</h6>
-	<input name="country" type="text" placeholder="">
-	<h6>Введите год</h6>
-	<input name="year" type="text" placeholder="">
+	</div><br />
+	<h5>Введите страну</h5>
+	<input name="country" type="text" placeholder=""><br /><br />
+	<h5>Введите год</h5>
+	<input name="year" type="text" placeholder=""><br /><br />
 	<div class="form-group">
 		<button class="btn btn-outline-info" type = "submit">Искать</button>
+		<button class="btn btn-outline-info" type="reset">Очистить</button>
 	</div>
-	<button type="button" onclick="reset()">Очистить</button>
 	</fieldset>
 </form>
 {% endblock %}

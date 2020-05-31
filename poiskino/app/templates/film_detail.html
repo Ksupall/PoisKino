@@ -4,19 +4,21 @@
 {% block style %}<link rel="stylesheet" href="../static/bootstrap.min.css"><link type="text/css" href="{% static 'style.css' %}" rel="stylesheet">{% endblock %}
 {% block main %}
 	<div class="name"><h2>{{ film.name }}</h2></div>
-	<h5>Описание:</h5>
+	<h5><u>Описание:</u></h5>
 	<div class="description">{{ film.description }}</div><br />
-	<div class="country"><h5>Страна: {{ film.country }}</h5></div><br />
-	<h5>Год: {{ film.year }}</h5><br />
-	<h5>Жанр: {{ genre }}</h5><br />
-	<h5>Режиссер: {{ film.directors }}</h5><br />
+	<div class="country"><h5><u>Страна:</u> {{ film.country }}</h5></div>
+	<h5><u>Год:</u> {{ film.year }}</h5>
+	<h5><u>Жанр:</u> {{ genre }}</h5>
+	<h5><u>Режиссер:</u> {{ director }}</h5>
+	<h5><u>Актеры:</u></h5>
+	{% for act in actors %}
+	<h5>{{ act }}</h5>
+	{% endfor %}
 	{% if user.is_authenticated %}
+	<br />
 	<form action="../../saved{{ film.id }}/" method="post">
 		{% csrf_token %}
-		<div class="form-group">
-			<input type="submit" name="change" value="{% ifequal saved True %}Удалить{% else %}Добавить{% endifequal %}">
-			</button>
-		</div>
+		<input class="add-delete" type="submit" name="change" value="{% ifequal saved True %}Удалить{% else %}Добавить{% endifequal %}">
 	</form>
 	{% endif %}
 {% endblock %}

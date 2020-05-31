@@ -4,7 +4,7 @@
 <head>
 	<meta charset="UTF-8">
 	<title>{% block title %}Новинки кино{% endblock %}</title>
-	{% block style %}<link type="text/css" href="{% static 'style.css' %}" rel="stylesheet" >{% endblock %}
+	{% block style %}<link rel="stylesheet" href="../static/bootstrap.min.css"><link type="text/css" href="{% static 'style.css' %}" rel="stylesheet" >{% endblock %}
 	<link href="https://fonts.googleapis.com/css2?family=Open+Sans" rel="stylesheet">
 </head>
 <body>
@@ -17,7 +17,7 @@
 				<a href="../app">ГЛАВНАЯ</a>
 				{% if user.is_authenticated %}
 				<a href="">{{ user.username }}</a>
-				<a href="../saved">СОХРАНЕНО</a>
+				<a href="../saved">ИЗБРАННОЕ</a>
 				<a href="{%url 'logout' %}">ВЫЙТИ</a>
 				{% else %}
 				<a href="{% url 'login' %}">ВОЙТИ</a>
@@ -26,10 +26,9 @@
 			</div>
 		</nav>
 	</header>
-	<body>
 		<div class="main">
 			{% block main %}
 			{% endblock %}
-		</span>
+		</div>
 	</body>
 </html>
