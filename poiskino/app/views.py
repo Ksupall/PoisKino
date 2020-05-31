@@ -2,17 +2,21 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse, Http404
 from .models import *
 from django.contrib import messages
-from .forms import RegisterForm, SearchForm
+from .forms import RegisterForm
 from django.contrib.auth.models import User
 from django.db.models import Q
 from django.views.generic import TemplateView, ListView
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 def index(request):
 	try:
 		films = Film.objects.filter(year=2020)
 	except Film.DoesNotExist:
 		raise Http404
-	return render(request, "news.html", {"films": films})
+	paginator = Paginator(films, 6)
+	page_number = request.GET.get('page', 1)
+	page = paginator.get_page(page_number)
+	return render(request, "news.html", {"films": page})
 
 def about(request):
 	return render(request, "about.html", {})
@@ -35,7 +39,8 @@ def film_detail(request, film_id):
 	except Film.DoesNotExist:
 		raise Http404
 	genre = film.get_genre_display()
-	print(genre)
+	director = film.directors.all()[0]
+	actors = film.actors.all()
 	if request.user.is_authenticated == True:
 		user = request.user
 		try:
@@ -44,7 +49,9 @@ def film_detail(request, film_id):
 			dic = {
 				'film': film,
 				'genre': genre,
-				'saved': False
+				'saved': False,
+				'director': director,
+				'actors': actors
 				}
 			return render(request, "film_detail.html", dic)
 		films = saved.films.all()
@@ -52,18 +59,24 @@ def film_detail(request, film_id):
 			dic = {
 			'film': film,
 			'genre': genre,
-			'saved': True
+			'saved': True,
+			'director': director,
+			'actors': actors
 			}
 		else:
 			dic = {
 			'film': film,
 			'genre': genre,
-			'saved': False
+			'saved': False,
+			'director': director,
+			'actors': actors
 			}
 		return render(request, "film_detail.html", dic)
 	else:
 		dic = {'film': film,
-				'genre': genre}
+				'genre': genre,
+				'director': director,
+				'actors': actors}
 		return render(request, "film_detail.html", dic)
 
 def search(request):
@@ -78,10 +91,6 @@ class SearchResultsView(ListView):
 		genre = self.request.GET.get('genre')
 		country = self.request.GET['country']
 		year = self.request.GET.get('year')
-		'''
-		actor_name = self.request.GET.get('actor')
-		print(Actor.objects.filter(Q(name__icontains=actor_name)).count())
-		'''
 		object_list = Film.objects.filter(Q(name__icontains=name))
 		if genre != None:
 			object_list = object_list.filter(Q(genre__iexact=genre))
@@ -96,7 +105,10 @@ def saved(request):
 	except List.DoesNotExist:
 		return render(request, "saved.html", {})
 	object_list = saved.films.all()
-	return render(request, "saved.html", {"object_list": object_list})
+	paginator = Paginator(object_list, 6)
+	page_number = request.GET.get('page', 1)
+	page = paginator.get_page(page_number)
+	return render(request, "saved.html", {"object_list": page} )
 
 
 def saved2(request, film_id):
@@ -110,10 +122,13 @@ def saved2(request, film_id):
 		elif action == "Удалить":
 			saved.deletefromlist(film_id)
 
+	object_list = saved.films.all()
+	paginator = Paginator(object_list, 6)
+	page_number = request.GET.get('page', 1)
+	page = paginator.get_page(page_number)
 	user = request.user
 	try:
 		saved = List.objects.get(user_id=user)
 	except List.DoesNotExist:
-		return render(request, "saved.html", {"object_list": film})
-	object_list = saved.films.all()
-	return render(request, "saved.html", {"object_list": object_list})
+		return render(request, "saved.html", {"object_list": page})
+	return render(request, "saved.html", {"object_list": page})

@@ -8,12 +8,3 @@ class RegisterForm(UserCreationForm):
 	class Meta:
 		model = User
 		fields = ['username', 'email', 'password1', 'password2']
-
-
-class SearchForm(forms.Form):
-	name = forms.CharField(
-		max_length=100,
-		widget=forms.TextInput(
-			attrs={ 'class': 'form-control'}
-		)
-	)

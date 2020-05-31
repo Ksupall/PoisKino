@@ -11,6 +11,9 @@ class Actor(models.Model):
 		print("Actor is saved!")
 		super().save(*args, **kwargs)
 
+	class Meta:
+		ordering = ['name']
+
 class Director(models.Model):
 	name = models.CharField(max_length = 150, unique = True)
 
@@ -20,6 +23,9 @@ class Director(models.Model):
 	def save(self, *args, **kwargs):
 		print("Director is saved!")
 		super().save(*args, **kwargs)
+
+	class Meta:
+		ordering = ['name']
 
 class Film(models.Model):
 	GENRE = (
@@ -52,6 +58,12 @@ class Film(models.Model):
 	def save(self, *args, **kwargs):
 		print("Film is saved!")
 		super().save(*args, **kwargs)
+
+	def getactors(self):
+		return self.actors
+
+	class Meta:
+		ordering = ['name']
 
 class Like(models.Model):
 	user_id = models.ForeignKey(User, on_delete=models.CASCADE)

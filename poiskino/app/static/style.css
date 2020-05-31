@@ -50,15 +50,16 @@ nav {
 }
 
 /* news */
-.news a {
+.news a, .saved a, .results a {
   font-size: 24px;
   text-transform: capitalize;
   color: #000;
 }
-.news a:active a:link a:visited {
+.news a:active a:link a:visited, .saved a:active a:link a:visited,
+.results a:active a:link a:visited {
   color: #fff;
 }
-.news a:hover {
+.news a:hover, .saved a:hover, .results a:hover {
   color: #fcac45;
 }
 
@@ -72,9 +73,15 @@ nav {
 }
 .btn {
   color: #000;
+  width: 100px;
+  height: 50px;
 }
 .btn:hover{
   background-color: #fcac45;
+}
+
+.btn2 {
+  width: 180px;
 }
 
 /* register */
@@ -93,4 +100,36 @@ nav {
 }
 .country {
   text-transform: capitalize;
+}
+.add-delete {
+  border-radius: 5px;
+  background: #fff;
+  width: 100px;
+  height: 50px;
+  border-width: 1px;
+  border-color: #00bfff;
+}
+.add-delete:hover {
+  color: #fff;
+  background-color: #fcac45;
+}
+
+/* search */
+.pa input{
+  margin: 10px 15px 0px 0px;
+}
+.part1 {
+  margin-left: 45px;
+}
+.part2 {
+  margin-left: 30px;
+}
+.part3 {
+  margin-left: 52px;
+}
+.part4 {
+  margin-left: 12px;
+}
+.part5 {
+  margin-left: 45px;
 }
