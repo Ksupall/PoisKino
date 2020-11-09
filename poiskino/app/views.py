@@ -103,6 +103,10 @@ def saved(request):
 	try:
 		saved = List.objects.get(user_id=user)
 	except List.DoesNotExist:
+		list = List()
+		list.create(user)
+		return render(request, "saved.html", {})
+	except saved == None:
 		return render(request, "saved.html", {})
 	object_list = saved.films.all()
 	paginator = Paginator(object_list, 6)

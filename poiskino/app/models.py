@@ -65,20 +65,14 @@ class Film(models.Model):
 	class Meta:
 		ordering = ['name']
 
-class Like(models.Model):
-	user_id = models.ForeignKey(User, on_delete=models.CASCADE)
-	film_id = models.ForeignKey(Film, on_delete = models.PROTECT)
-
-	def __str__(self):
-		return self.id
-
-	def save(self, *args, **kwargs):
-		print("Like is saved!")
-		super().save(*args, **kwargs)
-
 class List(models.Model):
 	user_id = models.ForeignKey(User, on_delete=models.CASCADE)
 	films = models.ManyToManyField(Film, verbose_name = "фильмы")
+
+	def create(self, username):
+		self.user_id = username
+		self.save()
+
 	def addtolist(self, film_id):
 		self.films.add(film_id)
 		self.save()
