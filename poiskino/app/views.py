@@ -134,5 +134,9 @@ def saved2(request, film_id):
 	try:
 		saved = List.objects.get(user_id=user)
 	except List.DoesNotExist:
+		list = List()
+		list.create(user)
+		return render(request, "saved.html", {"object_list": page})
+	except saved == None:
 		return render(request, "saved.html", {"object_list": page})
 	return render(request, "saved.html", {"object_list": page})
