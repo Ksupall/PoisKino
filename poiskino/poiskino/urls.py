@@ -16,21 +16,47 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import include, path
 from django.contrib.auth import views as auth_views
+from django.conf import settings
 
 from app import views as user_views
 from app import views
-from app.views import SearchResultsView
+#from app.views import ActorListView #, SearchResultsView, 
+'''
+path('actor/', views.ActorListView.as_view()),
+	path('actor/<int:pk>/', views.ActorDetailView.as_view()),
+	path('director/', views.DirectorListView.as_view()),
+	path('director/<int:pk>/', views.DirectorDetailView.as_view()),
+	path('film/', views.FilmListView.as_view()),
+	path('film/<int:pk>/', views.FilmDetailView.as_view()),
+	path('list/', views.ListListView.as_view()),
+	path('list/<int:pk>/', views.ListDetailView.as_view()),
+	path('actor/create/', views.ActorCreateView.as_view()),
+	path('director/create/', views.DirectorCreateView.as_view()),
+
+
+	path('actor/', views.actor_list),
+	path('actor/<int:pk>/', views.actor_detail),
+	path('actor/search/', views.actor_search),
+	'''
+
+
+from .yasg import urlpatterns as doc_urls
 
 urlpatterns = [
-	path('app/', views.index, name='index'),
 	path('admin/', admin.site.urls),
-	path('about/', views.about, name='about'),
-	path('register/', user_views.register, name='register'),
-	path('login/', auth_views.LoginView.as_view(template_name='login.html'), name='login'),
-	path('logout/', auth_views.LogoutView.as_view(template_name='logout.html'), name='logout'),
-	path('search/', views.search, name='search'),
-	path('result/', SearchResultsView.as_view(), name='search_results'),
-	path('film<int:film_id>/', views.film_detail, name='film_detail'),
-	path('saved/', views.saved, name='saved'),
-	path('saved<int:film_id>/', views.saved2, name='saved2'),
+	path('api-auth/', include('rest_framework.urls')),
+	path('actor/', views.ActorListView.as_view()),
+	path('actor/<int:pk>/', views.ActorDetailView.as_view()),
+	path('actor/create/', views.ActorCreateView.as_view()),
+	path('director/', views.DirectorListView.as_view()),
+	path('director/<int:pk>/', views.DirectorDetailView.as_view()),
+	path('director/create/', views.DirectorCreateView.as_view()),
+	path('film/', views.FilmListView.as_view()),
+	path('film/<int:pk>/', views.FilmDetailView.as_view()),
+	path('film/update/<int:pk>/', views.FilmUpdateView.as_view()),
+	path('list/', views.ListListView.as_view()),
+	path('list/<int:pk>/', views.ListDetailView.as_view()),
 ]
+
+urlpatterns += doc_urls
+
