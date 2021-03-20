@@ -22,7 +22,7 @@ idna==2.10
 importlib-metadata==1.7.0
 inflection==0.5.1
 itypes==1.2.0
-Jinja2==2.11.2
+Jinja2==2.11.3
 MarkupSafe==1.1.1
 Naked==0.1.31
 numpy==1.19.4
