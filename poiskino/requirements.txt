@@ -33,7 +33,7 @@ pyasn1==0.4.8
 pycparser==2.20
 pycryptodome==3.9.9
 pycryptodomex==3.9.9
-PyJWT==1.7.1
+PyJWT==2.4.0
 pyOpenSSL==20.0.0
 pyparsing==2.4.7
 PyQt5==5.15.2
